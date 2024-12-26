@@ -4,14 +4,19 @@ from dotenv import load_dotenv
 
 # TOKEN ACCESS
 load_dotenv()
-TOKEN = os.getenv("TOKEN")
+discord_token = os.getenv('DISCORD_TOKEN')
 
 class Client(discord.Client):
     async def on_ready(self):
-        print(f'Logging on as {self.user}')
+        print(f'Logged in as {self.user}')
+
+    async def on_message(self, message):
+        print(f'Message Detected. "{message.author}: {message.content}"')
+
 
 intents = discord.Intents.default()
 intents.message_content = True
 
+
 client = Client(intents=intents)
-client.run('TOKEN')
+client.run(discord_token)
